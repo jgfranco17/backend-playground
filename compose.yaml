@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: db-playground
+    restart: always
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: token
+      POSTGRES_DB: car_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./migrations:/docker-entrypoint-initdb.d # Run SQL scripts on startup
+
+volumes:
+  postgres_data:
