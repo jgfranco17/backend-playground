@@ -5,14 +5,14 @@ on:
     branches:
       - main
     paths:
-      - "app/**"
+      - "api/**"
       - "**.py"
       - ".github/workflows/integration-test.yaml"
   pull_request:
     branches:
       - main
     paths:
-      - "app/**"
+      - "api/**"
       - "**.py"
 
 jobs:

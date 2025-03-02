@@ -1,3 +1,5 @@
+"""Main API app module."""
+
 import logging
 
 logging.basicConfig(

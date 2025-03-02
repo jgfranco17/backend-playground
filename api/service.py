@@ -8,7 +8,7 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.routes.v0.routes import router_v0
+from api.routes.v0.routes import router_v0
 
 app = FastAPI(
     title="Backend Playground API",

@@ -1,3 +1,5 @@
+PROJECT_NAME := "backend-playground"
+
 # List out available commands
 _default:
     @just --list
@@ -10,12 +12,13 @@ setup:
 # Launch API in debug mode
 start-local:
     @echo "Running main app..."
+    poetry run uvicorn api.main:app --host 0.0.0.0 --port 8000
 
 # Start the Docker image
 docker-up tag="latest":
     @echo "Starting Docker image..."
-    docker build -t test-app:{{ tag }} -f ./Dockerfile .
-    docker run -p 8000:8000 test-app:{{ tag }}
+    docker build -t {{ PROJECT_NAME }}-api:{{ tag }} -f ./Dockerfile .
+    docker run -p 8000:8000 {{ PROJECT_NAME }}-api:{{ tag }}
 
 # Start dev DB
 run-db:
