@@ -5,10 +5,18 @@ description: "Configure Python and prepare the workspace"
 runs:
   using: composite
   steps:
-    - name: Set up Golang
+    - name: Set up Python
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
+
+    - name: Configure Poetry
+      shell: bash
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        poetry --version
+        poetry config virtualenvs.create false
+        poetry install
 
     - name: Install Just
       uses: extractions/setup-just@v2

@@ -24,3 +24,8 @@ run-db:
 # Exec into database image
 exec-db database="car_db":
     docker exec -it db-playground psql -U user -d {{ database }}
+
+# Run the docs server locally
+docs:
+    mkdocs build --strict --clean
+    mkdocs serve --open
