@@ -14,6 +14,11 @@ start-local:
     @echo "Running main app..."
     poetry run uvicorn api.main:app --host 0.0.0.0 --port 8000
 
+# Run Pytest unit tests
+pytest *args:
+	@echo "Running unittest suite..."
+	poetry run pytest {{ args }}
+
 # Start the Docker image
 docker-up tag="latest":
     @echo "Starting Docker image..."

@@ -1,4 +1,4 @@
-name: Integration Test
+name: Testing
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     paths:
       - "api/**"
       - "**.py"
-      - ".github/workflows/integration-test.yaml"
+      - ".github/workflows/testing.yaml"
   pull_request:
     branches:
       - main
@@ -16,6 +16,22 @@ on:
       - "**.py"
 
 jobs:
+  unit-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run setup
+        uses: ./.github/actions/setup-workspace
+
+      - name: Run Pytest
+        run: |
+          just pytest -vv
+
   integration-test:
     runs-on: ubuntu-latest
     services:

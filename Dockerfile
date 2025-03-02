@@ -17,7 +17,7 @@ RUN apt-get update && apt-get upgrade -y \
     curl \
     git
 
-COPY app /backend/app
+COPY api /backend/api
 COPY pyproject.toml /backend/pyproject.toml
 WORKDIR /backend
 
