@@ -1,6 +1,3 @@
-from typing import List
-
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -17,7 +14,7 @@ def test_health_endpoint(client: TestClient):
 
 
 def test_nonexistent_routes(client: TestClient):
-    response = client.get(f"/non-existent")
+    response = client.get("/non-existent")
     assert response.status_code == 404, "Endpoint should not exist in API."
 
 
