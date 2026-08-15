@@ -2,7 +2,7 @@ PROJECT_NAME := "backend-playground"
 
 # List out available commands
 _default:
-    @just --list
+    @just --list --unsorted
 
 # Execute installation
 setup:
@@ -10,7 +10,7 @@ setup:
     uv sync
 
 # Launch API in debug mode
-start-local:
+start:
     @echo "Running main app..."
     uv run uvicorn api.main:app --host 0.0.0.0 --port 8000
 
