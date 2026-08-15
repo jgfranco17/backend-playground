@@ -17,14 +17,11 @@ COPY pyproject.toml uv.lock /backend/
 WORKDIR /backend
 
 RUN uv --version \
-    && uv sync --no-dev --no-interaction
+    && uv sync --no-dev --locked
 
 FROM builder AS app
 
 WORKDIR /backend
-COPY --from=builder /backend /backend
-COPY --from=builder /usr/local /usr/local
-
 EXPOSE 8000
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
