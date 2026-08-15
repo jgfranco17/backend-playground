@@ -1,30 +1,30 @@
 # syntax=docker/dockerfile:1
-FROM python:3.12-slim AS base
+FROM python:3.13-alpine AS base
 
-ENV POETRY_VERSION=2.0.1
-ENV POETRY_VIRTUALENVS_CREATE=false
-ENV POETRY_CACHE_DIR='/var/cache/pypoetry'
-ENV POETRY_HOME='/usr/local'
+ENV UV_PROJECT_ENVIRONMENT=/usr/local
+ENV UV_LINK_MODE=copy
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-SHELL ["/bin/bash", "-eo", "pipefail", "-c"]
+FROM base AS builder
 
-RUN apt-get update && apt-get upgrade -y \
-  && apt-get install --no-install-recommends -y \
-    bash \
-    build-essential \
-    curl \
-    git
+RUN apk add --no-cache build-base curl git
 
-COPY api /backend/api
-COPY pyproject.toml /backend/pyproject.toml
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+COPY api/ /backend/api
+COPY pyproject.toml uv.lock /backend/
 WORKDIR /backend
 
-RUN curl -sSL https://install.python-poetry.org | python - \
-    && poetry --version \
-    && poetry install --no-interaction --no-ansi
+RUN uv --version \
+    && uv sync --no-dev --no-interaction
+
+FROM builder AS app
+
+WORKDIR /backend
+COPY --from=builder /backend /backend
+COPY --from=builder /usr/local /usr/local
 
 EXPOSE 8000
 
-CMD ["poetry", "run", "uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "8000"]
