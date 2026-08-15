@@ -16,10 +16,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Run setup
+      - name: Set up workspace
         uses: ./.github/actions/setup-workspace
 
-      - name: Run Pytest
+      - name: Run unit test cases
         run: |
           just pytest -vv
 
@@ -43,12 +43,12 @@ jobs:
         run: |
           just build
 
-      - name: Start API container
+      - name: Start service container
         run: |
           just up &
           sleep 10
 
-      - name: Run Pytest with Integration Tests
+      - name: Run integration test cases
         run: |
           just pytest -vv -x -m "integration" --with-integration
 
