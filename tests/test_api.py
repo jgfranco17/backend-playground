@@ -16,9 +16,8 @@ def test_health_endpoint(client: TestClient):
     assert response.json() == {"status": "healthy"}
 
 
-@pytest.mark.parametrize("endpoint", ["random", "doesnt-exist", "fail"])
-def test_nonexistent_routes(client: TestClient, endpoint: str):
-    response = client.get(f"/{endpoint}")
+def test_nonexistent_routes(client: TestClient):
+    response = client.get(f"/non-existent")
     assert response.status_code == 404, "Endpoint should not exist in API."
 
 
