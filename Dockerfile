@@ -17,7 +17,7 @@ COPY pyproject.toml uv.lock /backend/
 WORKDIR /backend
 
 RUN uv --version \
-    && uv sync --no-dev --locked
+    && uv sync --no-dev --locked --no-progress --quiet
 
 FROM builder AS app
 
