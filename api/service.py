@@ -1,6 +1,4 @@
 import logging
-from http import HTTPStatus
-from typing import Any, Callable, Dict
 
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -19,12 +17,12 @@ app = FastAPI(
 
 
 @app.get("/")
-def read_index() -> Dict[str, str]:
+def read_index() -> dict[str, str]:
     return {"message": "Hello, world!"}
 
 
 @app.get("/healthz")
-def check_api_health() -> Dict[str, str]:
+def check_api_health() -> dict[str, str]:
     return {"status": "healthy"}
 
 

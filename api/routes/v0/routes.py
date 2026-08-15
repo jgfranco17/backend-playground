@@ -1,6 +1,5 @@
 import logging
 from http import HTTPStatus
-from typing import Dict, Optional
 
 from fastapi import APIRouter, HTTPException
 
@@ -11,7 +10,7 @@ router_v0 = APIRouter(prefix="/v0", tags=["v0"])
 
 
 @router_v0.get("/greet")
-def greet(name: Optional[str] = None) -> Dict[str, str]:
+def greet(name: str | None = None) -> dict[str, str]:
     """Greet the user."""
     if not name:
         raise HTTPException(
