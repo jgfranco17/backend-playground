@@ -4,11 +4,6 @@ name: Testing
   push:
     branches:
       - "**"
-    paths:
-      - "api/**"
-      - "**.py"
-      - ".github/workflows/testing.yaml"
-      - "Dockerfile"
 
 jobs:
   unit-tests:
@@ -19,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Run setup
         uses: ./.github/actions/setup-workspace
@@ -27,3 +22,29 @@ jobs:
       - name: Run Pytest
         run: |
           just pytest -vv
+
+  integration-tests:
+    name: Run Integration Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Run setup
+        uses: ./.github/actions/setup-workspace
+
+      - name: Build image
+        run: |
+          just build
+
+      - name: Start API container
+        run: |
+          just up &
+          sleep 10
+
+      - name: Run Pytest with Integration Tests
+        run: |
+          just pytest -vv -x -m "integration" --with-integration

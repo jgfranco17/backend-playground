@@ -41,11 +41,6 @@ repos:
       - id: isort
         args: ["--profile", "black", "--skip-glob", "/builds/*"]
 
-  - repo: https://github.com/psf/black
-    rev: 26.5.1
-    hooks:
-      - id: black
-
   # Python code formatting in code blocks inside docs
   - repo: https://github.com/asottile/blacken-docs
     rev: 1.20.0

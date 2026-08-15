@@ -1,4 +1,5 @@
 PROJECT_NAME := "backend-playground"
+PORT := "8000"
 
 # List out available commands
 _default:
@@ -12,18 +13,22 @@ setup:
 # Launch API in debug mode
 start:
     @echo "Running main app..."
-    uv run uvicorn api.main:app --host 0.0.0.0 --port 8000
+    uv run uvicorn api.main:app --host 0.0.0.0 --port {{ PORT }} --reload
 
 # Run Pytest unit tests
 pytest *args:
 	@echo "Running unittest suite..."
 	uv run pytest {{ args }}
 
-# Start the Docker image
-docker-up tag="latest":
-    @echo "Starting Docker image..."
+# Build the Docker image
+build tag="latest":
+    @echo "Building Docker image..."
     docker build -t {{ PROJECT_NAME }}-api:{{ tag }} -f ./Dockerfile .
-    docker run -p 8000:8000 {{ PROJECT_NAME }}-api:{{ tag }}
+
+# Start the Docker image
+up tag="latest":
+    @echo "Starting Docker image..."
+    docker run -p {{ PORT }}:{{ PORT }} {{ PROJECT_NAME }}-api:{{ tag }}
 
 # Start dev DB
 run-db:
@@ -31,7 +36,7 @@ run-db:
 
 # Exec into database image
 exec-db database="car_db":
-    docker exec -it db-playground psql -U user -d {{ database }}
+    docker exec -it db-playground psql -U user -d {{ database }} || true
 
 # Run the docs server locally
 docs:
