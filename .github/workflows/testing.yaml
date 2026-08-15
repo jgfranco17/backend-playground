@@ -1,6 +1,6 @@
 name: Testing
 
-on:
+"on":
   push:
     branches:
       - "**"
@@ -8,14 +8,7 @@ on:
       - "api/**"
       - "**.py"
       - ".github/workflows/testing.yaml"
-      - Dockerfile
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "api/**"
-      - "**.py"
-      - Dockerfile
+      - "Dockerfile"
 
 jobs:
   unit-tests:
