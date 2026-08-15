@@ -24,10 +24,15 @@ build:
     @echo "Building Docker image..."
     docker compose build api
 
-# Start the full app stack (API + DB) via Compose
+# Start the full app stack via Docker Compose
 up:
     @echo "Starting app stack..."
-    docker compose up
+    docker compose up --build
+
+# Stop the full app stack
+down:
+    @echo "Stopping app stack..."
+    docker compose down
 
 # Run the docs server locally
 docs:
