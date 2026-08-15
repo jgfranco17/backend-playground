@@ -3,17 +3,19 @@ name: Testing
 on:
   push:
     branches:
-      - main
+      - "**"
     paths:
       - "api/**"
       - "**.py"
       - ".github/workflows/testing.yaml"
+      - Dockerfile
   pull_request:
     branches:
       - main
     paths:
       - "api/**"
       - "**.py"
+      - Dockerfile
 
 jobs:
   unit-tests:
