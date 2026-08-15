@@ -4,11 +4,6 @@ name: Testing
   push:
     branches:
       - "**"
-    paths:
-      - "api/**"
-      - "**.py"
-      - ".github/workflows/testing.yaml"
-      - "Dockerfile"
 
 jobs:
   unit-tests:
