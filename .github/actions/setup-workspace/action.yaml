@@ -10,13 +10,14 @@ runs:
       with:
         python-version: "3.10"
 
-    - name: Configure Poetry
+    - name: Install uv
+      uses: astral-sh/setup-uv@v3
+
+    - name: Sync dependencies
       shell: bash
       run: |
-        curl -sSL https://install.python-poetry.org | python3 -
-        poetry --version
-        poetry config virtualenvs.create false
-        poetry install
+        uv --version
+        uv sync
 
     - name: Install Just
       uses: extractions/setup-just@v2

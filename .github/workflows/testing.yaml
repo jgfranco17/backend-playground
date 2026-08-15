@@ -1,22 +1,18 @@
 name: Testing
 
-on:
+"on":
   push:
     branches:
-      - main
+      - "**"
     paths:
       - "api/**"
       - "**.py"
       - ".github/workflows/testing.yaml"
-  pull_request:
-    branches:
-      - main
-    paths:
-      - "api/**"
-      - "**.py"
+      - "Dockerfile"
 
 jobs:
   unit-tests:
+    name: Run Unit Tests
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false

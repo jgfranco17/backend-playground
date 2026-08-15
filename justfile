@@ -7,17 +7,17 @@ _default:
 # Execute installation
 setup:
     @echo "Setting up project..."
-    poetry install
+    uv sync
 
 # Launch API in debug mode
 start-local:
     @echo "Running main app..."
-    poetry run uvicorn api.main:app --host 0.0.0.0 --port 8000
+    uv run uvicorn api.main:app --host 0.0.0.0 --port 8000
 
 # Run Pytest unit tests
 pytest *args:
 	@echo "Running unittest suite..."
-	poetry run pytest {{ args }}
+	uv run pytest {{ args }}
 
 # Start the Docker image
 docker-up tag="latest":
