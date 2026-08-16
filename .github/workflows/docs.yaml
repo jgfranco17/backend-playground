@@ -8,6 +8,7 @@ name: Documentation
       - "pyproject.toml"
       - "mkdocs.yml"
       - "docs/**"
+      - ".github/workflows/docs.yaml"
 
 jobs:
   build-mkdocs:
