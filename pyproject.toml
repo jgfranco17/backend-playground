@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Virtual playground for backend learning"
 authors = [{ name = "Chino Franco", email = "chino.franco@gmail.com" }]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 dependencies = [
     "fastapi>=0.115.8,<0.116",
     "uvicorn>=0.34.0,<0.35",
