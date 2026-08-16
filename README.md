@@ -42,3 +42,8 @@ Ensure you have the following installed on your machine:
    # Or use the provided Just command for convenience
    just start
    ```
+
+## Testing
+
+This project uses [`pytest`](https://docs.pytest.org/en/stable/how-to/usage.html) for
+testing. Test cases are defined in `tests` directory.
