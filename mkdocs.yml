@@ -4,6 +4,7 @@ nav:
   - Getting Started: getting-started.md
   - API Reference: api-reference.md
   - Architecture: architecture.md
+  - Observability: observability.md
 theme:
   name: material
   font:
