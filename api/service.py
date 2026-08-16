@@ -4,6 +4,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
+from api.observability.middleware import PrometheusMiddleware
+from api.routes.obs import router_observability
 from api.routes.v0.routes import router_v0
 
 logger = logging.getLogger(__name__)
@@ -30,7 +32,8 @@ def check_api_health() -> dict[str, str]:
 async def http_exception_handler(request: Request, exc: HTTPException) -> JSONResponse:
     """General exception handler."""
     logger.error(
-        f"Service encountered HTTP {exc.status_code} error from {request.method}: {exc.detail}"
+        f"Service encountered HTTP {exc.status_code} error "
+        f"from {request.method}: {exc.detail}"
     )
     return JSONResponse(
         status_code=exc.status_code,
@@ -40,6 +43,7 @@ async def http_exception_handler(request: Request, exc: HTTPException) -> JSONRe
 
 # Load routes and middlewares
 app.include_router(router_v0)
+app.include_router(router_observability)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Adjust this to restrict origins
@@ -47,3 +51,4 @@ app.add_middleware(
     allow_methods=["GET"],
     allow_headers=["*"],
 )
+app.add_middleware(PrometheusMiddleware)
