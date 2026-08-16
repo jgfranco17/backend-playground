@@ -1,4 +1,4 @@
-name: Deploy Docs Site
+name: Documentation
 
 "on":
   push:
@@ -11,7 +11,7 @@ name: Deploy Docs Site
 
 jobs:
   build-mkdocs:
-    name: Build Pages
+    name: Build Site
     runs-on: ubuntu-latest
 
     steps:
@@ -21,13 +21,9 @@ jobs:
       - name: Run setup
         uses: ./.github/actions/setup-workspace
 
-      - name: Install dependencies
-        run: |
-          uv sync --group docs
-
       - name: Build site pages
         run: |
-          mkdocs build --clean --strict
+          uv run mkdocs build --clean --strict
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -38,7 +34,7 @@ jobs:
           path: ./site
 
   deploy-pages:
-    name: Deploy Pages
+    name: Deploy to Pages
     if: ${{ github.event.ref == format('refs/heads/{0}', github.event.repository.default_branch) }}
     runs-on: ubuntu-latest
     needs: build-mkdocs
