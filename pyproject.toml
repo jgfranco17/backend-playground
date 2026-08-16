@@ -26,6 +26,11 @@ dev = [
     "flake8>=7.1.1,<8",
     "pytest-cov>=7.1.0",
 ]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-material>=9.7.7",
+]
 
 [tool.uv]
 package = false
+default-groups = ["dev", "docs"]

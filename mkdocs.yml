@@ -1,4 +1,9 @@
 site_name: Backend Playground
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - API Reference: api-reference.md
+  - Architecture: architecture.md
 theme:
   name: material
   font:
@@ -21,8 +26,6 @@ theme:
         name: Toggle dark mode
       primary: blue
       accent: indigo
-  nav:
-    - Home: index.md
   features:
     - announce.dismiss
     - content.code.annotate

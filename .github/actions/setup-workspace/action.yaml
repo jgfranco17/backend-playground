@@ -17,7 +17,7 @@ runs:
       shell: bash
       run: |
         uv --version
-        uv sync
+        uv sync --all-groups
 
     - name: Install Just
       uses: extractions/setup-just@v4
